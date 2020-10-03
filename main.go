@@ -5,6 +5,7 @@ package main
 import "C"
 import (
 	"fmt"
+	"unsafe"
 )
 
 func main() {
@@ -30,6 +31,7 @@ print("************************")
 `
 
 	pycodeC := C.CString(pycode)
+	defer C.free(unsafe.Pointer(pycodeC))
 
 	C.PyRun_SimpleString(pycodeC)
 	C.Py_Finalize()
